@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herblox Status - Global Canlı Durum</title>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --xbox-green: #107c10;
+            --danger: #e81123;
+            --warning: #ffb900;
+            --bg-dark: #050505;
+            --card-bg: #121212;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        /* Header & Banner */
+        .header {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .status-banner {
+            background: rgba(16, 124, 16, 0.1);
+            border: 1px solid var(--xbox-green);
+            color: var(--xbox-green);
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 0 20px rgba(16, 124, 16, 0.2);
+        }
+
+        /* Timeline Yapısı */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid #222;
+        }
+
+        .incident {
+            position: relative;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--xbox-green);
+        }
+
+        .incident.ongoing {
+            border-left-color: var(--warning);
+        }
+
+        .incident::before {
+            content: '';
+            position: absolute;
+            left: -37px;
+            top: 25px;
+            width: 12px;
+            height: 12px;
+            background: var(--bg-dark);
+            border: 3px solid var(--xbox-green);
+            border-radius: 50%;
+        }
+
+        .date {
+            font-size: 0.85rem;
+            color: var(--xbox-green);
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .event-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        /* Otomatik Güncelleme Göstergesi */
+        .refresh-ui {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #222;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--xbox-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1
