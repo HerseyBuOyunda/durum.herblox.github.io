@@ -3,155 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Herblox Status - Canlı Sistem Durumu</title>
+    <title>Herblox Durumu</title>
     <style>
         :root {
             --xbox-green: #107c10;
-            --bg-color: #080808;
-            --card-bg: rgba(20, 20, 20, 0.9);
-            --text-color: #ffffff;
+            --bg-color: #050505;
+            --card-bg: rgba(15, 15, 15, 0.95);
+            --text-main: #ffffff;
+            --text-dim: #999;
         }
 
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            color: var(--text-color);
+            color: var(--text-main);
             background-color: var(--bg-color);
-            /* Sizin gönderdiğiniz dokulu arka planı döşüyoruz */
-            background-image: url('darkLoadingTexture.png'); 
+            /* Senin darkLoadingTexture görselini arka plana döşüyoruz */
+            background-image: url('darkLoadingTexture.png');
             background-repeat: repeat;
-            background-size: 200px;
+            background-size: 180px;
             background-attachment: fixed;
             display: flex;
-            justify-content: center;
-            padding: 40px 20px;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Arka planın üzerine hafif bir karanlık katman */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
         }
 
         .container {
-            width: 100%;
-            max-width: 800px;
-            z-index: 1;
+            width: 90%;
+            max-width: 850px;
+            margin-top: 60px;
+            padding-bottom: 100px;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .status-banner {
-            background: var(--card-bg);
-            border: 2px solid var(--xbox-green);
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            font-size: 1.4rem;
-            font-weight: bold;
-            box-shadow: 0 0 30px rgba(16, 124, 16, 0.3);
             margin-bottom: 40px;
-            backdrop-filter: blur(10px);
         }
 
-        /* Olay Listesi */
-        .incident-card {
-            background: var(--card-bg);
-            margin-bottom: 20px;
-            padding: 20px;
-            border-radius: 12px;
-            border-left: 5px solid var(--xbox-green);
-            backdrop-filter: blur(5px);
-        }
-
-        .date {
-            color: var(--xbox-green);
-            font-size: 0.85rem;
-            font-weight: bold;
+        .header h1 {
+            font-size: 2.5rem;
+            letter-spacing: 2px;
             margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(255,255,255,0.2);
         }
 
-        .title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 5px;
+        .status-hero {
+            background: var(--card-bg);
+            border: 1px solid rgba(16, 124, 16, 0.5);
+            border-top: 4px solid var(--xbox-green);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+            backdrop-filter: blur(8px);
         }
 
-        .desc {
-            color: #bbb;
-            font-size: 0.95rem;
-            line-height: 1.5;
+        .status-text {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: var(--xbox-green);
+            text-shadow: 0 0 10px rgba(16, 124, 16, 0.4);
         }
 
-        /* Canlı Takip Katmanı */
-        .live-tracker {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background: rgba(0,0,0,0.8);
-            padding: 10px 20px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        /* Geçmiş Kayıtlar */
+        .incident-item {
+            background: var(--card-bg);
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #333;
+            transition: transform 0.2s;
+        }
+
+        .incident-item:hover {
+            transform: translateX(5px);
+            border-left-color: var(--xbox-green);
+        }
+
+        .incident-date {
+            color: var(--xbox-green);
             font-size: 0.8rem;
-            border: 1px solid #333;
-        }
-
-        .loader-icon {
-            width: 20px;
-            height: 20px;
-            /* Sizin gönderdiğiniz loading simgesini döndürüyoruz */
-            background-image: url('DarkThemeLoadingCircle.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            animation: spin 2s linear infinite;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <div class="header">
-            <h1>Herblox Global Status</h1>
-            <p>Son 30 Günlük Sistem Kayıtları</p>
-        </div>
-
-        <div class="status-banner">
-            ✅ TÜM PLATFORMLAR AKTİF
-        </div>
-
-        <div id="history">
-            <div class="incident-card">
-                <div class="date">12 MAYIS 2026 - 20:20</div>
-                <div class="title">Visual Studio & Launcher Senkronizasyonu</div>
-                <div class="desc">Launcher çekirdek yapısı ve yeni görsel setler (Loading UI) sisteme entegre edildi.</div>
-            </div>
-
-            <div class="incident-card">
-                <div class="date">10 MAYIS 2026</div>
-                <div class="title">PlayStation Store API Güncellemesi</div>
-                <div class="desc">Konsol mağazası için gerekli olan yeni SSL sertifikaları başarıyla tanımlandı.</div>
-            </div>
-
-            <div class="incident-card" style="border-left-color: #555;">
-                <div class="date">25 NİSAN 2026</div>
-                <div class="title">Linux AUR & Flatpak Yayını</div>
-                <div class="desc">Herblox Player resmi olarak Linux dağıtım kanallarına eklendi.</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="live-tracker">
-        <div class="loader-icon"></div>
-        Canlı Veri Takibi Aktif (60s)
-    </div>
-
-    <script>
-        // Sayfayı her 60 saniyede bir otomatik yeniler
-        setTimeout(() => {
-            location.reload();
-        }, 60000);
-            0% { transform: scale(1); opacity: 1
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom:
