@@ -3,59 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Herblox Status</title>
+    <title>Herblox Status - Sistem Durumu</title>
     <style>
+        :root {
+            --xbox-green: #107c10;
+            --bg-dark: #050505;
+            --card-bg: rgba(20, 20, 20, 0.8);
+            --text-gray: #b3b3b3;
+        }
+
         body {
             margin: 0;
             padding: 0;
-            background-color: #050505;
-            /* Senin yüklediğin doku */
+            background-color: var(--bg-dark);
+            /* Senin darkLoadingTexture görselin */
             background-image: url('darkLoadingTexture.png');
             background-repeat: repeat;
-            background-size: 150px;
+            background-size: 160px;
             color: white;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
         }
 
-        /* Sayfa içeriği */
-        .content {
+        /* Ana Konteyner */
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin-top: 50px;
+            margin-bottom: 120px; /* Alttaki loader için boşluk */
+        }
+
+        .header {
             text-align: center;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 40px;
-            border-radius: 15px;
-            border: 1px solid #107c10;
+            margin-bottom: 40px;
+        }
+
+        .status-hero {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            border-left: 5px solid var(--xbox-green);
+            padding: 25px;
+            border-radius: 8px;
             backdrop-filter: blur(10px);
+            margin-bottom: 40px;
         }
 
-        h1 {
-            color: #107c10;
+        .status-title {
+            color: var(--xbox-green);
+            font-size: 1.4rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* SON 30 GÜN BÖLÜMÜ */
+        .history-section {
+            margin-top: 20px;
+        }
+
+        .history-title {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            margin-bottom: 15px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .history-item {
+            background: rgba(30, 30, 30, 0.4);
+            padding: 15px;
+            border-radius: 6px;
             margin-bottom: 10px;
-            letter-spacing: 2px;
+            border: 1px solid transparent;
+            transition: 0.3s;
         }
 
-        .status {
-            font-size: 1.2rem;
-            color: #ccc;
+        .history-item:hover {
+            border-color: #444;
+            background: rgba(40, 40, 40, 0.6);
+        }
+
+        .history-date {
+            color: var(--xbox-green);
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .history-desc {
+            font-size: 0.95rem;
+            color: #ddd;
         }
 
         /* SAĞ ALTTAKİ DÖNEN DAİRE (Videonuzdaki hız) */
-        .loader-container {
+        .loader-bar {
             position: fixed;
-            bottom: 40px;
-            right: 40px;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 30px;
             display: flex;
+            justify-content: flex-end;
             align-items: center;
             gap: 15px;
+            border-top: 1px solid #222;
+            backdrop-filter: blur(15px);
         }
 
         .spinning-circle {
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             background-image: url('DarkThemeLoadingCircle.png');
             background-size: contain;
             background-repeat: no-repeat;
@@ -68,22 +132,54 @@
             to { transform: rotate(360deg); }
         }
 
-        .loading-text {
-            font-size: 0.9rem;
-            color: #888;
+        .pulse {
+            width: 10px;
+            height: 10px;
+            background-color: var(--xbox-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--xbox-green);
         }
     </style>
 </head>
 <body>
 
-    <div class="content">
-        <h1>HERBLOX STATUS</h1>
-        <div class="status">● Sistemler Aktif</div>
-        <p style="font-size: 0.8rem; color: #666; margin-top: 20px;">v1.0.2 - Live</p>
+    <div class="container">
+        <div class="header">
+            <h1 style="letter-spacing: 3px;">HERBLOX DURUMU</h1>
+            <p style="color: var(--text-gray)">Sistem Altyapı Kontrolü</p>
+        </div>
+
+        <div class="status-hero">
+            <div class="status-title">
+                <div class="pulse"></div> TÜM SİSTEMLER OPERASYONEL
+            </div>
+            <p style="color: var(--text-gray); font-size: 0.9rem; margin-top: 10px;">
+                Şu anda herhangi bir kesinti tespit edilmedi.
+            </p>
+        </div>
+
+        <div class="history-section">
+            <div class="history-title">Son 30 Günlük Geçmiş</div>
+            
+            <div class="history-item">
+                <div class="history-date">13 MAYIS 2026 (Bugün)</div>
+                <div class="history-desc">Web tabanlı durum paneli v1.0.5 yayına alındı. Asset senkronizasyonu tamamlandı.</div>
+            </div>
+
+            <div class="history-item">
+                <div class="history-date">10 MAYIS 2026</div>
+                <div class="history-desc">API servisleri optimize edildi. Veri çekme hızı %20 artırıldı.</div>
+            </div>
+
+            <div class="history-item">
+                <div class="history-date">28 NİSAN 2026</div>
+                <div class="history-desc">Herblox sunucu altyapısında planlı bakım çalışması başarıyla tamamlandı.</div>
+            </div>
+        </div>
     </div>
 
-    <div class="loader-container">
-        <span class="loading-text">Veriler senkronize ediliyor...</span>
+    <div class="loader-bar">
+        <span style="font-size: 0.85rem; color: #777;">Veriler kontrol ediliyor...</span>
         <div class="spinning-circle"></div>
     </div>
 
