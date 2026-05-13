@@ -3,97 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Herblox Durumu</title>
+    <title>Herblox Status</title>
     <style>
-        :root {
-            --xbox-green: #107c10;
-            --bg-color: #050505;
-            --card-bg: rgba(15, 15, 15, 0.95);
-            --text-main: #ffffff;
-            --text-dim: #999;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            color: var(--text-main);
-            background-color: var(--bg-color);
-            /* Senin darkLoadingTexture görselini arka plana döşüyoruz */
+            padding: 0;
+            background-color: #050505;
+            /* Senin yüklediğin doku */
             background-image: url('darkLoadingTexture.png');
             background-repeat: repeat;
-            background-size: 180px;
-            background-attachment: fixed;
+            background-size: 150px;
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        /* Arka planın üzerine hafif bir karanlık katman */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: -1;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 850px;
-            margin-top: 60px;
-            padding-bottom: 100px;
-        }
-
-        .header {
+        /* Sayfa içeriği */
+        .content {
             text-align: center;
-            margin-bottom: 40px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid #107c10;
+            backdrop-filter: blur(10px);
         }
 
-        .header h1 {
-            font-size: 2.5rem;
-            letter-spacing: 2px;
+        h1 {
+            color: #107c10;
             margin-bottom: 10px;
-            text-shadow: 0 0 15px rgba(255,255,255,0.2);
+            letter-spacing: 2px;
         }
 
-        .status-hero {
-            background: var(--card-bg);
-            border: 1px solid rgba(16, 124, 16, 0.5);
-            border-top: 4px solid var(--xbox-green);
-            padding: 30px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            margin-bottom: 30px;
-            backdrop-filter: blur(8px);
+        .status {
+            font-size: 1.2rem;
+            color: #ccc;
         }
 
-        .status-text {
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: var(--xbox-green);
-            text-shadow: 0 0 10px rgba(16, 124, 16, 0.4);
+        /* SAĞ ALTTAKİ DÖNEN DAİRE (Videonuzdaki hız) */
+        .loader-container {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        /* Geçmiş Kayıtlar */
-        .incident-item {
-            background: var(--card-bg);
-            margin-bottom: 15px;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid #333;
-            transition: transform 0.2s;
+        .spinning-circle {
+            width: 40px;
+            height: 40px;
+            background-image: url('DarkThemeLoadingCircle.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            /* 1.5s -> Videondaki o akıcı hız */
+            animation: spin 1.5s linear infinite;
         }
 
-        .incident-item:hover {
-            transform: translateX(5px);
-            border-left-color: var(--xbox-green);
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
-        .incident-date {
-            color: var(--xbox-green);
-            font-size: 0.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-bottom:
+        .loading-text {
+            font-size: 0.9rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content">
+        <h1>HERBLOX STATUS</h1>
+        <div class="status">● Sistemler Aktif</div>
+        <p style="font-size: 0.8rem; color: #666; margin-top: 20px;">v1.0.2 - Live</p>
+    </div>
+
+    <div class="loader-container">
+        <span class="loading-text">Veriler senkronize ediliyor...</span>
+        <div class="spinning-circle"></div>
+    </div>
+
+</body>
+</html>
